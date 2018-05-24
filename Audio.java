@@ -2,22 +2,26 @@
  * Created by whitt on 5/16/2018.
  */
 
+import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.*;
+import java.io.File;
 
 public class Audio {
 
+    static AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
     static float sampleRate = 44100;
     static int sampleSizeInBits = 16;
-    static int channels = 1;          //mono
+    static int channels = 2;          //mono
+    static int frameSize = 4;
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
-    static boolean bigEndian = true;  //Indicates whether the audio data is stored in big-endian or little-endian
+    static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
 
     Hashtable blah = new Hashtable();
 
 
     public static void main(String[] args){
-        AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
+        AudioFormat format = new AudioFormat(encoding, sampleRate, sampleSizeInBits, channels, frameSize, sampleRate, bigEndian);
         final TargetDataLine line;
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
         if (!AudioSystem.isLineSupported(info)) {
@@ -31,24 +35,47 @@ public class Audio {
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
 
-            System.out.println("starting Recording");
+            System.out.println("Starting Recording");
 
             line.start();
 
-            Thread stopper = new Thread(new Runnable() {
+            Thread thread = new Thread()
+            {
                 @Override
                 public void run() {
                     AudioInputStream stream = new AudioInputStream(line);
 
-                    //File wavfile = new File("")
+                    File wavfile = new File("audio\\record.wav");
+                    try { AudioSystem.write(stream, AudioFileFormat.Type.WAVE, wavfile);}
+                    catch (IOException ioe) {ioe.printStackTrace();}
+                    System.out.println("Stopped Recording");
                 }
-            });
+            };
+
+            thread.start();
+            Thread.sleep(5000);
+            line.stop();
+            line.close();
 
         } catch (LineUnavailableException ex) {
             // Handle the error ...
             System.out.println("Line unavailable");
-        }
-        return;
+            ex.printStackTrace();
+        } catch (InterruptedException ie) {ie.printStackTrace();}
+
+        File file = new File("audio\\record.wav");
+        AudioInputStream in = AudioSystem.getAudioInputStream(file);
+        AudioInputStream din = null;
+        AudioFormat baseFormat = in.getFormat();
+        AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
+                baseFormat.getSampleRate(),
+                16,
+                baseFormat.getChannels(),
+                baseFormat.getChannels() * 2,
+                baseFormat.getSampleRate(),
+                false);
+        din = AudioSystem.getAudioInputStream(decodedFormat, in);
+
     }
 
 }

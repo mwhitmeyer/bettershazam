@@ -64,7 +64,14 @@ public class Audio {
         } catch (InterruptedException ie) {ie.printStackTrace();}
 
         File file = new File("audio\\record.wav");
-        AudioInputStream in = AudioSystem.getAudioInputStream(file);
+        AudioInputStream in = null;
+        try {
+            in = AudioSystem.getAudioInputStream(file);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         AudioInputStream din = null;
         AudioFormat baseFormat = in.getFormat();
         AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
@@ -75,6 +82,7 @@ public class Audio {
                 baseFormat.getSampleRate(),
                 false);
         din = AudioSystem.getAudioInputStream(decodedFormat, in);
+
 
     }
 

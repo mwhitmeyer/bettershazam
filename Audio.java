@@ -21,6 +21,7 @@ public class Audio {
 
 
     public static void main(String[] args){
+        // https://www.youtube.com/watch?v=GVtl19L9GxU
         AudioFormat format = new AudioFormat(encoding, sampleRate, sampleSizeInBits, channels, frameSize, sampleRate, bigEndian);
         final TargetDataLine line;
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);

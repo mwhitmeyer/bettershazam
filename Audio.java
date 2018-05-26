@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.*;
 import java.io.File;
+//import org.math.plot.*;
 
 
 public class Audio {
@@ -89,9 +90,19 @@ public class Audio {
         din = AudioSystem.getAudioInputStream(decodedFormat, in);
         //byte[] bytes = IOUtils.toByteArray(din);
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int nRead;
-        //byte[] bytes = new
-
+        int nRead = 0;
+        int length = (int) sampleRate*5*sampleSizeInBits/8;
+        byte[] bytes = new byte[length];
+        try {
+            nRead = din.read(bytes, 0, length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (nRead == -1) {
+            System.out.println("uh oh");
+            return;
+        }
+        System.out.println(Arrays.toString(bytes));
 
     }
 

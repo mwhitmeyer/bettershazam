@@ -2,10 +2,14 @@
  * Created by whitt on 5/16/2018.
  */
 
+import sun.misc.IOUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.*;
 import java.io.File;
+
 
 public class Audio {
 
@@ -83,6 +87,10 @@ public class Audio {
                 baseFormat.getSampleRate(),
                 false);
         din = AudioSystem.getAudioInputStream(decodedFormat, in);
+        //byte[] bytes = IOUtils.toByteArray(din);
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        //byte[] bytes = new
 
 
     }

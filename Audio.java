@@ -103,6 +103,15 @@ public class Audio {
             return;
         }
         System.out.println(Arrays.toString(bytes));
+        final int totalSize = bytes.length;
+
+        final int chunkSize = 4*1024; //4kB recommended chunk size
+        int sampleChunks = totalSize/chunkSize;
+
+        //Use complex numbers for freq domain
+        Complex[][] res = new Complex[sampleChunks][];
+
+
 
     }
 

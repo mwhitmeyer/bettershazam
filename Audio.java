@@ -21,9 +21,10 @@ public class Audio {
     static int frameSize = 4;
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
-    final int[] RANGE = new int[] { 40, 80, 120, 180, 300 };
+    static int[] RANGE = new int[] { 40, 80, 120, 180, 300 };
 
-    Hashtable blah = new Hashtable();
+
+    static Hashtable blah = new Hashtable();
 
 
     public static void main(String[] args){

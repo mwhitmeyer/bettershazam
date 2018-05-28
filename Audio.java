@@ -7,6 +7,7 @@ import sun.misc.IOUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
+import javax.lang.model.type.NullType;
 import javax.sound.sampled.*;
 import java.io.File;
 //import org.math.plot.*;
@@ -22,7 +23,9 @@ public class Audio {
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
     static int[] RANGE = new int[] { 40, 80, 120, 180, 300 };
-
+    static double[][] highScores;
+    static int[][] points;
+    static final int FUZ_FACTOR = 2; // Set this according to the conditions of the recording; How should we measure those conditions?
 
     static Hashtable blah = new Hashtable();
 
@@ -139,7 +142,7 @@ public class Audio {
 
     public static long createHashPrint(Complex[][] result){
         for (int i=0; i < result.length; i++) {
-            for (int freq=40; freq < 300; freq++) {
+            for (int freq=40; freq<300; freq++) {
                 // Get the magnitude:
                 double mag = Math.log(result[i][freq].abs() + 1);
 
@@ -147,7 +150,10 @@ public class Audio {
                 int index = getIndex(freq);
 
                 // Save the highest magnitude and corresponding frequency:
-
+                if (mag > highScores[i][index]) {
+                    highScores[i][index] = mag;
+                    points[i][index] = freq;
+                }
             }
         }
 

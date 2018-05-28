@@ -2,8 +2,6 @@
  * Created by whitt on 5/16/2018.
  */
 
-import sun.misc.IOUtils;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
@@ -21,13 +19,19 @@ public class Audio {
     static int frameSize = 4;
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
-    static int[] RANGE = new int[] { 40, 80, 120, 180, 400 };
+    static int[] RANGE = new int[] { 40, 80, 120, 180, 300 };
+    static double[][] highScores;
+    static int[][] points;
     static int FUZ_FACTOR = 2;
     static Hashtable<double[], int[]> allTheFingerprints = new Hashtable<>();
 
 
 
     public static void main(String[] args){
+        
+    }
+
+    public static void newRecording() {
         // https://www.youtube.com/watch?v=GVtl19L9GxU
         AudioFormat format = new AudioFormat(encoding, sampleRate, sampleSizeInBits, channels, frameSize, sampleRate, bigEndian);
         final TargetDataLine line;
@@ -125,8 +129,6 @@ public class Audio {
 
         // Now create digital fingerprint
         createHashPrint(res);
-
-
     }
 
     // find out in which range is frequency
@@ -153,27 +155,21 @@ public class Audio {
                 int index = getIndex(freq);
 
                 // Save the highest magnitude and corresponding frequency:
-
                 if (mag > highscores[index]) {
                     highscores[index] = freq;
-
                 }
-
             }
-
             hashes[i] = hash(highscores);
         }
         return hashes;
 
     }
 
-    private long hash(double[] highscores) {
+    private static double hash(double[] highscores) {
         double p1 = highscores[0];
         double p2 = highscores[1];
         double p3 = highscores[2];
         double p4 = highscores[3];
-
-
 
         return (p4 - (p4 % FUZ_FACTOR)) * 100000000 + (p3 - (p3 % FUZ_FACTOR))
                 * 100000 + (p2 - (p2 % FUZ_FACTOR)) * 100

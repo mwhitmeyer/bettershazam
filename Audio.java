@@ -24,7 +24,7 @@ public class Audio {
     static int[] RANGE = new int[] { 40, 80, 120, 180, 400 };
     static int FUZ_FACTOR = 2;
     static Hashtable<double[], int[]> allTheFingerprints = new Hashtable<>();
-    
+
 
 
     public static void main(String[] args){

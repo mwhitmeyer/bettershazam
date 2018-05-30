@@ -15,7 +15,7 @@ public class Audio {
     static AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
     static float sampleRate = 44100;
     static int sampleSizeInBits = 16;
-    static int channels = 2;          //mono
+    static int channels = 2;
     static int frameSize = 4;
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian

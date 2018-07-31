@@ -20,8 +20,6 @@ public class Audio {
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
     static int[] RANGE = new int[] { 40, 80, 120, 180, 300 };
-    static double[][] highScores;
-    static int[][] points;
     static int FUZ_FACTOR = 2;
     static Hashtable<double[], int[]> allTheFingerprints = new Hashtable<>();
 
@@ -30,7 +28,7 @@ public class Audio {
 
 
     public static void main(String[] args){
-        
+
     }
 
     public static void newRecording() {
@@ -164,7 +162,6 @@ public class Audio {
             hashes[i] = hash(highscores);
         }
         return hashes;
-
     }
 
     private static double hash(double[] highscores) {

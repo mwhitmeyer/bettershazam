@@ -4,6 +4,9 @@
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import javax.sound.sampled.*;
 import java.io.File;
@@ -23,7 +26,7 @@ public class Audio {
     static double[][] highScores;
     static int[][] points;
     static int FUZ_FACTOR = 2;
-    static Hashtable<double[], int[]> allTheFingerprints = new Hashtable<>();
+    static HashMap<double[], LinkedList<String>> allTheFingerprints = new HashMap<>();
 
 
 
@@ -31,7 +34,7 @@ public class Audio {
         
     }
 
-    public static void newRecording() {
+    public void newRecording() {
         // https://www.youtube.com/watch?v=GVtl19L9GxU
         AudioFormat format = new AudioFormat(encoding, sampleRate, sampleSizeInBits, channels, frameSize, sampleRate, bigEndian);
         final TargetDataLine line;
@@ -97,7 +100,7 @@ public class Audio {
         //byte[] bytes = IOUtils.toByteArray(din);
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int nRead = 0;
-        int length = (int) sampleRate*5*sampleSizeInBits/8;
+        int length = (int) sampleRate*5*sampleSizeInBits/8; // why multiply by 5 here?
         byte[] bytes = new byte[length];
         try {
             nRead = din.read(bytes, 0, length);
@@ -108,7 +111,7 @@ public class Audio {
             System.out.println("uh oh");
             return;
         }
-        System.out.println(Arrays.toString(bytes));
+//        System.out.println(Arrays.toString(bytes));
         final int totalSize = bytes.length;
 
         final int chunkSize = 4*1024; //4kB recommended chunk size
@@ -128,7 +131,7 @@ public class Audio {
         }
 
         // Now create digital fingerprint
-        createHashPrint(res);
+        identifyRecording(res);
     }
 
     // find out in which range is frequency
@@ -139,10 +142,10 @@ public class Audio {
         return i;
     }
 
-    public static double[] createHashPrint(Complex[][] result){
+    public static double[][] identifyRecording(Complex[][] result){
 
 
-        double[] hashes = new double[result.length];
+        double[][] everyHighscore = new double[result.length][];
 
 
         for (int i=0; i < result.length; i++) {
@@ -159,11 +162,87 @@ public class Audio {
                     highscores[index] = freq;
                 }
             }
-            hashes[i] = hash(highscores);
+            everyHighscore[i] = highscores;
         }
-        return hashes;
+
+
+        return everyHighscore;
 
     }
+
+    public static void fingerprintFullSong(String mp3filePath) throws IOException {
+        Path path = Paths.get(mp3filePath);
+        String songName = mp3filePath;
+        byte[] data = Files.readAllBytes(path);
+
+        final int totalSize = data.length;
+
+        final int chunkSize = 4*1024; //4kB recommended chunk size
+        int sampleChunks = totalSize/chunkSize;
+
+        //Use complex numbers for freq domain
+        Complex[][] res = new Complex[sampleChunks][];
+
+        for(int i = 0; i < sampleChunks; i++) {
+            Complex[] complexArray = new Complex[4*1024];
+
+            for(int j = 0; j < chunkSize; j++) {
+                complexArray[i] = new Complex((double) data[(i*chunkSize)+j], (double) 0);
+            }
+            //Perform FFT analysis on the chunk:
+            res[i] = Complex.fft(complexArray);
+        }
+
+        double[][] everyHighscore = new double[res.length][];
+
+
+        for (int i=0; i < res.length; i++) {
+            double[] highscores = new double[] {0, 0, 0, 0};
+            for (int freq=40; freq < 400; freq++) {
+                // Get the magnitude:
+                double mag = Math.log(res[i][freq].abs() + 1); //why is there a log here
+
+                // Find out which range we are in:
+                int index = getIndex(freq);
+
+                // Save the highest magnitude and corresponding frequency:
+                if (mag > highscores[index]) {
+                    highscores[index] = freq;
+                }
+            }
+            everyHighscore[i] = highscores;
+        }
+
+
+
+
+        for (int i=0; i < everyHighscore.length; i++) {
+            Audio.putToMap(allTheFingerprints, everyHighscore[i], songName + Integer.toString(i));
+
+        }
+
+    }
+
+    public static void putToMap(HashMap map, double[] freq, String details) {
+
+        LinkedList<String> songs = (LinkedList<String>) map.get(freq);
+        if (songs == null) {
+            songs = new LinkedList<String> ();
+            songs.add(details);
+            map.put(freq, songs);
+        } else {
+            songs.add(details);
+            map.put(freq, songs);
+        }
+
+    }
+
+
+
+//    @Override
+//    public int hashCode() {
+//        return hash()
+//    }
 
     private static double hash(double[] highscores) {
         double p1 = highscores[0];

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b46994c3-5276-40e1-a767-c5e8abe229e5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Audio.java" afterPath="$PROJECT_DIR$/Audio.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fingerprint.java" afterPath="$PROJECT_DIR$/fingerprint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/record.wav" afterPath="$PROJECT_DIR$/record.wav" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +17,8 @@
       <file leaf-file-name="Audio.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Audio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1680">
-              <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+            <state relative-caret-position="2475">
+              <caret line="165" column="47" lean-forward="true" selection-start-line="165" selection-start-column="47" selection-end-line="165" selection-end-column="47" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -34,7 +32,7 @@
       <file leaf-file-name="Complex.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Complex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
+            <state relative-caret-position="486">
               <caret line="174" column="5" lean-forward="true" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -393,7 +391,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Complex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
+        <state relative-caret-position="486">
           <caret line="174" column="5" lean-forward="true" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -404,8 +402,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Audio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1680">
-          <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+        <state relative-caret-position="2475">
+          <caret line="165" column="47" lean-forward="true" selection-start-line="165" selection-start-column="47" selection-end-line="165" selection-end-column="47" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />

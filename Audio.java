@@ -22,11 +22,9 @@ public class Audio {
     static int frameSize = 4;
     static boolean signed = true;     //Indicates whether the data is signed or unsigned
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
-    static int[] RANGE = new int[] { 40, 80, 120, 180, 300 };
+    static int[] RANGE = new int[] { 40, 80, 120, 180, 3000 };
     static int FUZ_FACTOR = 2;
-    static HashMap<double[], LinkedList<String>> allTheFingerprints = new HashMap<>();
-
-
+    static Map<Long, LinkedList<String>> allTheFingerprints = new HashMap<>();
 
     public static void main(String[] args){
         Audio.newRecording();
@@ -117,13 +115,13 @@ public class Audio {
             e.printStackTrace();
         }
         if (nRead == -1) {
-            System.out.println("uh oh");
+//            System.out.println("uh oh");
             return;
         }
-//        System.out.println(Arrays.toString(bytes));
+        System.out.println(Arrays.toString(bytes));
         final int totalSize = bytes.length;
-        System.out.print("This is the length of the byte array: ");
-        System.out.println(totalSize);
+//        System.out.print("This is the length of the byte array: ");
+//        System.out.println(totalSize);
 
         final int chunkSize = 4*1024; //4kB recommended chunk size
         int sampleChunks = totalSize/chunkSize;
@@ -132,62 +130,116 @@ public class Audio {
         Complex[][] res = new Complex[sampleChunks][];
 
         for(int i = 0; i < sampleChunks; i++) {
-            Complex[] complexArray = new Complex[4*1024];
+            Complex[] complexArray = new Complex[chunkSize];
+//            System.out.println();
 
             for(int j = 0; j < chunkSize; j++) {
-                complexArray[i] = new Complex((double) bytes[(i*chunkSize)+j], (double) 0);
+                complexArray[j] = new Complex(bytes[(i*chunkSize)+j], (double) 0);
+//                System.out.println("Print bytes array index");
+//                System.out.println((i*chunkSize)+j);
+//                System.out.println(complexArray[i].toString());
+
             }
-//            Perform FFT analysis on the chunk:
-            res[i] = Complex.fft(complexArray);
-            System.out.println("LOOK HERE");
-            System.out.println(res[i]);
+//            System.out.println(complexArray.toString());
+
+            //nth root of unity
+            int len = complexArray.length;
+            double real = Math.cos(2*Math.PI / len);
+            double imag = Math.sin(2*Math.PI / len);
+            Complex nru = new Complex(real, imag);
+
+
+            //Perform FFT analysis on the chunk:
+            res[i] = Complex.fft(complexArray, nru);
+//            System.out.println("LOOK HERE");
+//            System.out.println(res[i]);
         }
 
         // Now create digital fingerprint
-
-        identifyRecording(res);
+        getSignature(res, false, "");
     }
 
     // find out in which range is frequency
     public static int getIndex(int freq) {
         int i = 0;
-        while (RANGE[i] < freq)
+        while (RANGE[i] < freq) {
             i++;
+        }
         return i;
     }
 
+    public static void getSignature(Complex[][] result, boolean putInDatabaseOrNot, String songName){
+        // within each interval, identify the frequency with the highest magnitude
+        // forms a signature hash for this chunk of the song
+        //result is song chunk/interval
+        System.out.println("Inside getSignature, here is result length");
+        System.out.println(result.length);
 
-    public static double[][] identifyRecording(Complex[][] result){
-
-
-        double[][] everyHighscore = new double[result.length][];
-
+        long[][] allPoints = new long[result.length][4];
 
         for (int i=0; i < result.length; i++) {
-            double[] highscores = new double[] {0, 0, 0, 0};
+
+            double[][] highscores = new double[result.length][400-40];
+
             for (int freq=40; freq < 400; freq++) {
                 // Get the magnitude:
                 double mag = Math.log(result[i][freq].abs() + 1); //why is there a log here
+//                System.out.println("Mag is: ");
+//                System.out.println(mag);
 
                 // Find out which range we are in:
                 int index = getIndex(freq);
 
                 // Save the highest magnitude and corresponding frequency:
-                if (mag > highscores[index]) {
-                    highscores[index] = freq;
+                if (mag > highscores[i][index]) {
+                    highscores[i][index] = mag;
+                    try {
+                        allPoints[i][index] = freq;
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("Array Index Out of Bounds Exception");
+
+                        System.out.println("Freq is: ");
+                        System.out.println(freq);
+
+                        System.out.println("Index is: ");
+                        System.out.println(index);
+                    }
                 }
             }
-            everyHighscore[i] = highscores;
+
+            // hash
+            long h = hashThis(
+                    allPoints[i][0],
+                    allPoints[i][1],
+                    allPoints[i][2],
+                    allPoints[i][3]
+            );
+
+            System.out.println("Here is the hash: ");
+            System.out.println(h);
+
+            // True: Need to put in database
+            if (putInDatabaseOrNot) {
+                Audio.putToMap(allTheFingerprints, h, songName + Integer.toString(i));
+
+            } else {
+                // False: Looking it up in database
+
+            }
+
         }
-
-
-        return everyHighscore;
-
+//        return everyHighscore;
     }
 
-    public static void fingerprintFullSong(String mp3filePath) throws IOException {
-        Path path = Paths.get(mp3filePath);
-        String songName = mp3filePath;
+    public static long hashThis(long p1, long p2, long p3, long p4) {
+        return (p4 - (p4 % FUZ_FACTOR)) * 100000000 + (p3 - (p3 % FUZ_FACTOR))
+                * 100000 + (p2 - (p2 % FUZ_FACTOR)) * 100
+                + (p1 - (p1 % FUZ_FACTOR));
+    }
+
+    public static void fingerprintFullSong(String wavFile) throws IOException {
+        Path path = Paths.get(wavFile);
+        String songName = wavFile;
         byte[] data = Files.readAllBytes(path);
 
         final int totalSize = data.length;
@@ -202,45 +254,27 @@ public class Audio {
             Complex[] complexArray = new Complex[4*1024];
 
             for(int j = 0; j < chunkSize; j++) {
-                complexArray[i] = new Complex((double) data[(i*chunkSize)+j], (double) 0);
+                complexArray[j] = new Complex((double) data[(i*chunkSize)+j], (double) 0);
             }
+
+            //nth root of unity
+            int len = complexArray.length;
+            double real = Math.cos(2*Math.PI / len);
+            double imag = Math.sin(2*Math.PI / len);
+            Complex nru = new Complex(real, imag);
+
             //Perform FFT analysis on the chunk:
-            res[i] = Complex.fft(complexArray);
+            res[i] = Complex.fft(complexArray, nru);
         }
 
-        double[][] everyHighscore = new double[res.length][];
-
-
-        for (int i=0; i < res.length; i++) {
-            double[] highscores = new double[] {0, 0, 0, 0};
-            for (int freq=40; freq < 400; freq++) {
-                // Get the magnitude:
-                double mag = Math.log(res[i][freq].abs() + 1); //why is there a log here
-
-                // Find out which range we are in:
-                int index = getIndex(freq);
-
-                // Save the highest magnitude and corresponding frequency:
-                if (mag > highscores[index]) {
-                    highscores[index] = freq;
-                }
-            }
-            everyHighscore[i] = highscores;
-        }
-
-
-
-
-        for (int i=0; i < everyHighscore.length; i++) {
-            Audio.putToMap(allTheFingerprints, everyHighscore[i], songName + Integer.toString(i));
-
-        }
+        // call getSignature
+        getSignature(res, true, songName);
 
     }
 
-    public static void putToMap(HashMap map, double[] freq, String details) {
+    public static void putToMap(Map map, long hash, String details) {
 
-        LinkedList<String> songs = (LinkedList<String>) map.get(freq);
+//        LinkedList<String> songs = (LinkedList<String>) map.get(freq);
         if (songs == null) {
             songs = new LinkedList<String> ();
             songs.add(details);

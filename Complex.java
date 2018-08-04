@@ -28,6 +28,7 @@
  *
  ******************************************************************************/
 
+import javax.lang.model.type.NullType;
 import java.util.Objects;
 
 public class Complex {
@@ -134,29 +135,43 @@ public class Complex {
     }
 
     public static Complex[] fft(Complex[] x) {
+        if (x == null) {
+            System.out.println("poopsters");
+            return null;
+
+        }
         int len = x.length;
+        Complex[] result = new Complex[len];
 
         // fft of even terms
         Complex[] e = new Complex[len / 2];
         for (int i=0; i<len/2; i++) {
             e[i] = x[2*i];
         }
-        Complex[] a = fft(e);
+        if (len > 0) {
+            Complex[] a = fft(e);
 
-        // fft of odd terms
-        Complex[] o = e; // reuse the array
-        for (int i=0; i<len/2; i++) {
-            o[i] = x[2*i+1];
-        }
-        Complex[] b = fft(o);
+            // fft of odd terms
+            Complex[] o = e; // reuse the array
+            for (int i=0; i<len/2; i++) {
+                o[i] = x[2*i+1];
+            }
+            Complex[] b = fft(o);
 
-        //combine
-        Complex[] result = new Complex[len];
-        for (int i=0; i < len/2; i++) {
-            double kth = -2 * i * Math.PI / len;
-            Complex wk = new Complex(Math.cos(kth), Math.sin(kth));
-            result[i] = a[i].plus(wk.times(b[i]));
-            result[i+len/2] = a[i].minus(wk.times(b[i]));
+            //combine
+            if (a != null && b != null) {
+                for (int i = 0; i < len / 2; i++) {
+                    double kth = -2 * i * Math.PI / len;
+                    Complex wk = new Complex(Math.cos(kth), Math.sin(kth));
+                    System.out.println("A is: ");
+                    System.out.println(a[i]);
+                    System.out.println("B is: ");
+                    System.out.println(b[i]);
+                    result[i] = a[i].plus(wk.times(b[i]));
+                    result[i + len / 2] = a[i].minus(wk.times(b[i]));
+                }
+                return result;
+            }
         }
         return result;
     }

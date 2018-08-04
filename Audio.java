@@ -26,6 +26,7 @@ public class Audio {
 
 
     public static void main(String[] args){
+        Audio.newRecording();
 
     }
 
@@ -53,16 +54,25 @@ public class Audio {
             {
                 @Override
                 public void run() {
+
                     AudioInputStream stream = new AudioInputStream(line);
 
-                    File wavfile = new File("audio\\record.wav");
-                    try { AudioSystem.write(stream, AudioFileFormat.Type.WAVE, wavfile);}
-                    catch (IOException ioe) {ioe.printStackTrace();}
-                    System.out.println("Stopped Recording");
+                    File wavfile = new File("record.wav");
+
+//                    System.out.println("Made it in here");
+                    try {
+                        AudioSystem.write(stream, AudioFileFormat.Type.WAVE, wavfile);
+                        System.out.println("Stopped Recording");
+                    }
+                    catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
                 }
             };
 
             thread.start();
+//            thread.run();
+//            System.out.println("HELLO");
             Thread.sleep(5000);
             line.stop();
             line.close();
@@ -73,7 +83,8 @@ public class Audio {
             ex.printStackTrace();
         } catch (InterruptedException ie) {ie.printStackTrace();}
 
-        File file = new File("audio\\record.wav");
+        System.out.println("I made it this far");
+        File file = new File("record.wav");
         AudioInputStream in = null;
         try {
             in = AudioSystem.getAudioInputStream(file);
@@ -106,8 +117,10 @@ public class Audio {
             System.out.println("uh oh");
             return;
         }
-        System.out.println(Arrays.toString(bytes));
+//        System.out.println(Arrays.toString(bytes));
         final int totalSize = bytes.length;
+        System.out.print("This is the length of the byte array: ");
+        System.out.println(totalSize);
 
         final int chunkSize = 4*1024; //4kB recommended chunk size
         int sampleChunks = totalSize/chunkSize;
@@ -121,12 +134,14 @@ public class Audio {
             for(int j = 0; j < chunkSize; j++) {
                 complexArray[i] = new Complex((double) bytes[(i*chunkSize)+j], (double) 0);
             }
-            //Perform FFT analysis on the chunk:
+//            Perform FFT analysis on the chunk:
             res[i] = Complex.fft(complexArray);
+            System.out.println("LOOK HERE");
+            System.out.println(res[i]);
         }
 
         // Now create digital fingerprint
-        createHashPrint(res);
+//        createHashPrint(res);
     }
 
     // find out in which range is frequency
@@ -137,30 +152,30 @@ public class Audio {
         return i;
     }
 
-    public static double[] createHashPrint(Complex[][] result){
-
-
-        double[] hashes = new double[result.length];
-
-
-        for (int i=0; i < result.length; i++) {
-            double[] highscores = new double[] {0, 0, 0, 0};
-            for (int freq=40; freq < 400; freq++) {
-                // Get the magnitude:
-                double mag = Math.log(result[i][freq].abs() + 1); //why is there a log here
-
-                // Find out which range we are in:
-                int index = getIndex(freq);
-
-                // Save the highest magnitude and corresponding frequency:
-                if (mag > highscores[index]) {
-                    highscores[index] = freq;
-                }
-            }
-            hashes[i] = hash(highscores);
-        }
-        return hashes;
-    }
+//    public static double[] createHashPrint(Complex[][] result){
+//
+//
+//        double[] hashes = new double[result.length];
+//
+//
+//        for (int i=0; i < result.length; i++) {
+//            double[] highscores = new double[] {0, 0, 0, 0};
+//            for (int freq=40; freq < 400; freq++) {
+//                // Get the magnitude:
+//                double mag = Math.log(result[i][freq].abs() + 1); //why is there a log here
+//
+//                // Find out which range we are in:
+//                int index = getIndex(freq);
+//
+//                // Save the highest magnitude and corresponding frequency:
+//                if (mag > highscores[index]) {
+//                    highscores[index] = freq;
+//                }
+//            }
+//            hashes[i] = hash(highscores);
+//        }
+//        return hashes;
+//    }
 
     private static double hash(double[] highscores) {
         double p1 = highscores[0];

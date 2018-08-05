@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b46994c3-5276-40e1-a767-c5e8abe229e5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/bettershazam/Audio.class" afterPath="$PROJECT_DIR$/out/production/bettershazam/Audio.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/bettershazam/Complex.class" afterPath="$PROJECT_DIR$/out/production/bettershazam/Complex.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/bettershazam/record.wav" afterPath="$PROJECT_DIR$/out/production/bettershazam/record.wav" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/record.wav" afterPath="$PROJECT_DIR$/record.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Audio.java" afterPath="$PROJECT_DIR$/Audio.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Complex.java" afterPath="$PROJECT_DIR$/Complex.java" />
     </list>
@@ -23,14 +19,14 @@
       <file leaf-file-name="Audio.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Audio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="277" column="22" lean-forward="false" selection-start-line="277" selection-start-column="22" selection-end-line="277" selection-end-column="22" />
+            <state relative-caret-position="24">
+              <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="method#main#0;class#Audio#0" expanded="false" />
-                <element signature="e#1715#2347#0" expanded="true" />
-                <element signature="e#2346#2347#0" expanded="true" />
+                <element signature="method#newRecording#0;class#Audio#0" expanded="false" />
+                <element signature="e#1797#2429#0" expanded="true" />
+                <element signature="e#2428#2429#0" expanded="true" />
                 <element signature="method#getIndex#0;class#Audio#0" expanded="false" />
                 <element signature="method#hashThis#0;class#Audio#0" expanded="false" />
                 <element signature="method#hash#0;class#Audio#0" expanded="false" />
@@ -39,11 +35,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Complex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Complex.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="319">
+              <caret line="218" column="9" lean-forward="true" selection-start-line="218" selection-start-column="9" selection-end-line="218" selection-end-column="9" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="fingerprint.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fingerprint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+            <state relative-caret-position="308">
+              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,6 +80,8 @@
       <find>127, -1</find>
       <find>LOOK HERE</find>
       <find>System.out.println();</find>
+      <find>bytes</find>
+      <find>array index out</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -343,9 +354,9 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#main#0;class#Audio#0" expanded="false" />
-            <element signature="e#1715#2347#0" expanded="true" />
-            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="method#newRecording#0;class#Audio#0" expanded="false" />
+            <element signature="e#1797#2429#0" expanded="true" />
+            <element signature="e#2428#2429#0" expanded="true" />
             <element signature="method#getIndex#0;class#Audio#0" expanded="false" />
             <element signature="method#hashThis#0;class#Audio#0" expanded="false" />
             <element signature="method#hash#0;class#Audio#0" expanded="false" />
@@ -381,9 +392,9 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#main#0;class#Audio#0" expanded="false" />
-            <element signature="e#1715#2347#0" expanded="true" />
-            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="method#newRecording#0;class#Audio#0" expanded="false" />
+            <element signature="e#1797#2429#0" expanded="true" />
+            <element signature="e#2428#2429#0" expanded="true" />
             <element signature="method#getIndex#0;class#Audio#0" expanded="false" />
             <element signature="method#hashThis#0;class#Audio#0" expanded="false" />
             <element signature="method#hash#0;class#Audio#0" expanded="false" />
@@ -419,22 +430,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Complex.java">
+    <entry file="file://$PROJECT_DIR$/fingerprint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="211" column="37" lean-forward="false" selection-start-line="211" selection-start-column="37" selection-end-line="211" selection-end-column="37" />
+        <state relative-caret-position="308">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fingerprint.java">
+    <entry file="file://$PROJECT_DIR$/Complex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+        <state relative-caret-position="319">
+          <caret line="218" column="9" lean-forward="true" selection-start-line="218" selection-start-column="9" selection-end-line="218" selection-end-column="9" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -442,14 +453,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Audio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="277" column="22" lean-forward="false" selection-start-line="277" selection-start-column="22" selection-end-line="277" selection-end-column="22" />
+        <state relative-caret-position="24">
+          <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#main#0;class#Audio#0" expanded="false" />
-            <element signature="e#1715#2347#0" expanded="true" />
-            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="method#newRecording#0;class#Audio#0" expanded="false" />
+            <element signature="e#1797#2429#0" expanded="true" />
+            <element signature="e#2428#2429#0" expanded="true" />
             <element signature="method#getIndex#0;class#Audio#0" expanded="false" />
             <element signature="method#hashThis#0;class#Audio#0" expanded="false" />
             <element signature="method#hash#0;class#Audio#0" expanded="false" />

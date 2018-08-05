@@ -26,9 +26,10 @@ public class Audio {
     static int FUZ_FACTOR = 2;
     static Map<Long, LinkedList<String>> allTheFingerprints = new HashMap<>();
 
-    public static void main(String[] args){
-        Audio.newRecording();
-
+    public static void main(String[] args) throws IOException {
+//        Audio.newRecording();
+        fingerprintFullSong("i_gotta_feeling.wav");
+        
     }
 
     public static void newRecording() {
@@ -175,7 +176,7 @@ public class Audio {
         System.out.println("Inside getSignature, here is result length");
         System.out.println(result.length);
 
-        long[][] allPoints = new long[result.length][4];
+        long[][] allPoints = new long[result.length][5];
 
         for (int i=0; i < result.length; i++) {
 
@@ -238,11 +239,19 @@ public class Audio {
     }
 
     public static void fingerprintFullSong(String wavFile) throws IOException {
+        //Need a list of songs, where list index is Song ID, String is songName
+        System.out.println("inside fingerprintfullsong with: ");
+        System.out.print(wavFile);
+
         Path path = Paths.get(wavFile);
         String songName = wavFile;
         byte[] data = Files.readAllBytes(path);
 
+        System.out.println(Arrays.toString(data));
+
         final int totalSize = data.length;
+
+        System.out.println(totalSize);
 
         final int chunkSize = 4*1024; //4kB recommended chunk size
         int sampleChunks = totalSize/chunkSize;
@@ -274,15 +283,20 @@ public class Audio {
 
     public static void putToMap(Map map, long hash, String details) {
 
-//        LinkedList<String> songs = (LinkedList<String>) map.get(freq);
+        LinkedList<String> songs = (LinkedList<String>) map.get(hash);
         if (songs == null) {
             songs = new LinkedList<String> ();
             songs.add(details);
-            map.put(freq, songs);
+            map.put(hash, songs);
         } else {
             songs.add(details);
-            map.put(freq, songs);
+            map.put(hash, songs);
         }
+
+        System.out.println("Successfully entered: ");
+        System.out.print(details);
+        System.out.print(" into database with the hash ");
+        System.out.print(hash);
 
     }
 

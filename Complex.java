@@ -214,6 +214,7 @@ public class Complex {
                 result[i] = a[i].plus(wi.times(y[i]));
                 result[i + len / 2] = a[i].minus(wi.times(y[i]));
             }
+//            System.out.println("Completed fft");
             return result;
         }
     }

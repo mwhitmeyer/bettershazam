@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b46994c3-5276-40e1-a767-c5e8abe229e5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/record.wav" afterPath="$PROJECT_DIR$/record.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Audio.java" afterPath="$PROJECT_DIR$/Audio.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Complex.java" afterPath="$PROJECT_DIR$/Complex.java" />
-    </list>
+    <list default="true" id="b46994c3-5276-40e1-a767-c5e8abe229e5" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -107,7 +103,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="739" />
+    <option name="x" value="644" />
     <option name="y" value="23" />
     <option name="width" value="941" />
     <option name="height" value="987" />
@@ -301,7 +297,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="739" y="23" width="941" height="987" extended-state="0" />
+    <frame x="644" y="23" width="941" height="987" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

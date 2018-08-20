@@ -28,6 +28,9 @@
  *
  ******************************************************************************/
 
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
+import javax.lang.model.type.NullType;
 import java.util.Objects;
 
 public class Complex {
@@ -82,6 +85,15 @@ public class Complex {
         return new Complex(real, imag);
     }
 
+    public Complex power(int b) {
+        Complex a = this;
+        Complex result = a;
+        for (int i = 0; i < b-1; i++) {
+            result = result.times(a);
+        }
+        return result;
+    }
+
     // return a new object whose value is (this * alpha)
     public Complex scale(double alpha) {
         return new Complex(alpha * re, alpha * im);
@@ -133,31 +145,130 @@ public class Complex {
         return sin().divides(cos());
     }
 
-    public static Complex[] fft(Complex[] x) {
-        int len = x.length;
+    //our own fft
+    public static Complex[] fft(Complex[] a, Complex omega) {
+//        System.out.println("calling fft");
+//        System.out.println(a[a.length - 1]);
+//        System.out.println(a[0]);
+        int count = 0;
+        for (int i = 0; i < a.length; i ++) {
+            if (a[i] == null) {
+                count++;
+            }
 
-        // fft of even terms
-        Complex[] e = new Complex[len / 2];
-        for (int i=0; i<len/2; i++) {
-            e[i] = x[2*i];
         }
-        Complex[] a = fft(e);
+//        System.out.print("count is ");
+//        System.out.println(count);
 
-        // fft of odd terms
-        Complex[] o = e; // reuse the array
-        for (int i=0; i<len/2; i++) {
-            o[i] = x[2*i+1];
-        }
-        Complex[] b = fft(o);
+        if (a.length == 1) {
+//            System.out.println("In base case");
+//            System.out.print("a[0] is: ");
+//            System.out.println(a[0]);
+            return a;
+        } else {
+            int len = a.length;
+//            System.out.println(len);
+//            System.out.print("omega real: ");
+//            System.out.println(omega.re());
+//            System.out.print("omega imag: ");
+//            System.out.println(omega.im());
 
-        //combine
-        Complex[] result = new Complex[len];
-        for (int i=0; i < len/2; i++) {
-            double kth = -2 * i * Math.PI / len;
-            Complex wk = new Complex(Math.cos(kth), Math.sin(kth));
-            result[i] = a[i].plus(wk.times(b[i]));
-            result[i+len/2] = a[i].minus(wk.times(b[i]));
+            Complex[] result = new Complex[len];
+
+            // fft of even terms
+            Complex[] e = new Complex[len / 2];
+            for (int i=0; i<len/2; i++) {
+                e[i] = a[2*i];
+            }
+
+//            System.out.print("parent is of length ");
+//            System.out.println(len);
+            Complex[] x = fft(e, omega.times(omega));
+
+            // fft of odd terms
+            Complex[] o = new Complex[len / 2];
+//            System.out.print("length of o: ");
+//            System.out.println(o.length);
+            for (int i=0; i<len/2; i++) {
+//                System.out.print("Print a ");
+//                System.out.print(a[0]);
+//                System.out.print(a[1]);
+//                System.out.println(a[i]);
+                o[i] = a[2*i+1];
+//                System.out.println("Print this: ");
+//                System.out.println(2*i+1);
+//                System.out.print("o[i] is: ");
+//                System.out.println(o[i]);
+            }
+
+//            System.out.print("parent is of length ");
+//            System.out.println(len);
+            Complex[] y = fft(o, omega.times(omega));
+
+            for (int i = 0; i < len/2; i++) {
+//                System.out.println("x[i] is: ");
+//                System.out.println(x[i]);
+//                System.out.println("y[i] is: ");
+//                System.out.println(y[i]);
+                Complex wi = omega.power(i);
+                result[i] = a[i].plus(wi.times(y[i]));
+                result[i + len / 2] = a[i].minus(wi.times(y[i]));
+            }
+//            System.out.println("Completed fft");
+            return result;
         }
-        return result;
     }
+
+//    public static Complex[] fft(Complex[] x) {
+//        if (x == null) {
+//            System.out.println("poopsters");
+//            return null;
+//        }
+//        int len = x.length;
+//        System.out.println("length");
+//        System.out.println(len);
+//
+//        if (len == 1 ) {
+//            System.out.println("Length is 1");
+//            return x;
+//        }
+//
+//        Complex[] result = new Complex[len];
+//
+//        // fft of even terms
+//        Complex[] e = new Complex[len / 2];
+//        for (int i=0; i<len/2; i++) {
+//            e[i] = x[2*i];
+//        }
+//
+//        if (len > 0) {
+//            System.out.println("INSIDE length > 0");
+//            System.out.println(len);
+//            Complex[] a = fft(e);
+//
+//            // fft of odd terms
+//            Complex[] o = e; // reuse the array
+//            for (int i=0; i<len/2; i++) {
+//                o[i] = x[2*i+1];
+//            }
+//
+//            Complex[] b = fft(o);
+//
+//            //combine
+//            if (a != null || b != null) {
+//                for (int i = 0; i < len / 2; i++) {
+//                    double kth = -2 * i * Math.PI / len;
+//                    Complex wk = new Complex(Math.cos(kth), Math.sin(kth));
+//                    System.out.println("A is: ");
+//                    System.out.println(a[i]);
+//                    System.out.println("B is: ");
+//                    System.out.println(b[i]);
+//                    result[i] = a[i].plus(wk.times(b[i]));
+//                    result[i + len / 2] = a[i].minus(wk.times(b[i]));
+//                }
+//                return result;
+//            }
+//        }
+//        return result;
+//    }
 }

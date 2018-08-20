@@ -147,7 +147,7 @@ public class Complex {
 
     //our own fft
     public static Complex[] fft(Complex[] a, Complex omega) {
-
+//        System.out.println("calling fft");
 //        System.out.println(a[a.length - 1]);
 //        System.out.println(a[0]);
         int count = 0;

@@ -2,18 +2,20 @@
  * Created by whitt on 5/16/2018.
  */
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import javafx.util.Pair;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import javax.sound.sampled.*;
-import java.io.File;
+
+import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.details;
 //import org.math.plot.*;
 
 
-public class Audio {
+public class Audio implements java.io.Serializable{
 
     static AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
     static float sampleRate = 44100;
@@ -24,12 +26,37 @@ public class Audio {
     static boolean bigEndian = false;  //Indicates whether the audio data is stored in big-endian or little-endian
     static int[] RANGE = new int[] { 40, 80, 120, 180, 3000 };
     static int FUZ_FACTOR = 2;
-    static Map<Long, LinkedList<String>> allTheFingerprints = new HashMap<>();
+    static HashMap<Long, LinkedList<Pair<String, Integer>>> allTheFingerprints = new HashMap<Long, LinkedList<Pair<String, Integer>>>();
 
     public static void main(String[] args) throws IOException {
-//        Audio.newRecording();
-        fingerprintFullSong("i_gotta_feeling.wav");
-        
+
+        Audio.deserializeDatabase();
+        Audio.newRecording();
+//        fingerprintFullSong("record.wav");
+
+
+    }
+
+    public static void deserializeDatabase() {
+        try {
+            FileInputStream fileIn = new FileInputStream("database.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            allTheFingerprints = (HashMap<Long, LinkedList<Pair<String, Integer>>>) in.readObject();
+            in.close();
+            fileIn.close();
+            if (allTheFingerprints == null) {
+                allTheFingerprints = new HashMap<Long, LinkedList<Pair<String, Integer>>>();
+            }
+            System.out.print("here is allTheFingerprints: ");
+            System.out.println(allTheFingerprints);
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
     }
 
     public static void newRecording() {
@@ -119,7 +146,7 @@ public class Audio {
 //            System.out.println("uh oh");
             return;
         }
-        System.out.println(Arrays.toString(bytes));
+//        System.out.println(Arrays.toString(bytes));
         final int totalSize = bytes.length;
 //        System.out.print("This is the length of the byte array: ");
 //        System.out.println(totalSize);
@@ -219,13 +246,55 @@ public class Audio {
             System.out.println("Here is the hash: ");
             System.out.println(h);
 
+            HashMap<String, LinkedList<Integer>> PossibleSongs = new HashMap();
+
             // True: Need to put in database
             if (putInDatabaseOrNot) {
-                Audio.putToMap(allTheFingerprints, h, songName + Integer.toString(i));
+                Audio.putToMap(allTheFingerprints, h, new Pair<String, Integer> (songName, i));
 
             } else {
                 // False: Looking it up in database
+                LinkedList<Pair<String, Integer>> listOfPairs = allTheFingerprints.get(h);
+                if (listOfPairs == null) {
+                    System.out.println("NOT FOUND IN DATABASE");
+                } else {
+                    ListIterator<Pair<String,Integer>> listIterator = listOfPairs.listIterator();
+                    while(listIterator.hasNext()) {
+                        Pair<String, Integer> pair = listIterator.next();
+                        String key = pair.getKey();
+                        Integer value = pair.getValue();
 
+                        if (PossibleSongs.get(key) == null) {
+                            // New possible song
+                            LinkedList<Integer> list = new LinkedList<Integer>();
+                            list.add(value);
+                        } else {
+                            // Add time interval to existing possible song
+                            LinkedList<Integer> list = PossibleSongs.get(key);
+                            list.add(value);
+                        }
+                    }
+
+                    // add logic to check that each sequential case in linked list is chronological
+
+                    Integer max = 0;
+                    String mostProbable = "";
+                    Iterator it = PossibleSongs.keySet().iterator();
+                    while(it.hasNext()) {
+                        String songname = it.next().toString();
+                        Integer len = PossibleSongs.get(songname).size();
+                        if (len > max) {
+                            max = len;
+                            mostProbable = songname;
+                        } else {
+                            System.out.println("SOMETHING WENT WRONG");
+                        }
+                    }
+
+                    System.out.println("Most probable song is: ");
+                    System.out.println(mostProbable);
+
+                }
             }
 
         }
@@ -247,7 +316,7 @@ public class Audio {
         String songName = wavFile;
         byte[] data = Files.readAllBytes(path);
 
-        System.out.println(Arrays.toString(data));
+//        System.out.println(Arrays.toString(data));
 
         final int totalSize = data.length;
 
@@ -279,17 +348,30 @@ public class Audio {
         // call getSignature
         getSignature(res, true, songName);
 
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("database.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(allTheFingerprints);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in database.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
     }
 
-    public static void putToMap(Map map, long hash, String details) {
-
-        LinkedList<String> songs = (LinkedList<String>) map.get(hash);
+    public static void putToMap(HashMap<Long, LinkedList<Pair<String, Integer>>> map, long hash, Pair<String, Integer> pair) {
+        System.out.print("here is the map: ");
+        System.out.println(map);
+        LinkedList<Pair<String, Integer>> songs = map.get(hash);
         if (songs == null) {
-            songs = new LinkedList<String> ();
-            songs.add(details);
+            songs = new LinkedList<Pair<String, Integer>> ();
+            songs.add(pair);
             map.put(hash, songs);
         } else {
-            songs.add(details);
+            songs.add(pair);
             map.put(hash, songs);
         }
 

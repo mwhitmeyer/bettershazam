@@ -31,8 +31,8 @@ public class Audio implements java.io.Serializable{
     public static void main(String[] args) throws IOException {
 
         Audio.deserializeDatabase();
+//        Audio.fingerprintFullSong("i_gotta_feeling.wav");
         Audio.newRecording();
-//        fingerprintFullSong("record.wav");
 
 
     }
@@ -243,8 +243,8 @@ public class Audio implements java.io.Serializable{
                     allPoints[i][3]
             );
 
-            System.out.println("Here is the hash: ");
-            System.out.println(h);
+//            System.out.println("Here is the hash: ");
+//            System.out.println(h);
 
             HashMap<String, LinkedList<Integer>> PossibleSongs = new HashMap();
 
@@ -256,8 +256,9 @@ public class Audio implements java.io.Serializable{
                 // False: Looking it up in database
                 LinkedList<Pair<String, Integer>> listOfPairs = allTheFingerprints.get(h);
                 if (listOfPairs == null) {
-                    System.out.println("NOT FOUND IN DATABASE");
+                    //System.out.println("NOT FOUND IN DATABASE");
                 } else {
+                    System.out.println("Found a match!!!!");
                     ListIterator<Pair<String,Integer>> listIterator = listOfPairs.listIterator();
                     while(listIterator.hasNext()) {
                         Pair<String, Integer> pair = listIterator.next();
@@ -268,6 +269,8 @@ public class Audio implements java.io.Serializable{
                             // New possible song
                             LinkedList<Integer> list = new LinkedList<Integer>();
                             list.add(value);
+                            PossibleSongs.put(key, list);
+                            //Audio.putToMap();  need to put into Possible Songs!!!
                         } else {
                             // Add time interval to existing possible song
                             LinkedList<Integer> list = PossibleSongs.get(key);

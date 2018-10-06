@@ -2,20 +2,68 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98202ee7-7007-42fe-8b71-be8f6c6d3385" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Pair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Audio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Audio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Complex.java" beforeDir="false" afterPath="$PROJECT_DIR$/Complex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bettershazam.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bettershazam.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.ser" beforeDir="false" afterPath="$PROJECT_DIR$/database.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.base/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.base/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.base/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.controls/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.controls/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.controls/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.fxml/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.fxml/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.fxml/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.graphics/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.graphics/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.graphics/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.graphics/jpeg_v7.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/applecoreaudio.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/glib.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/gstreamer.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.media/libffi.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.swing/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.swing/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.swing/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/icu_v51.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/libxml2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/libxslt.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/legal/javafx.web/webkit.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx-swt.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.base.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.controls.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.fxml.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.graphics.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.media.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.swing.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/javafx.web.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libavplugin-54.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libavplugin-56.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libavplugin-57.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libavplugin-ffmpeg-56.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libavplugin-ffmpeg-57.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libdecora_sse.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libfxplugins.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libglass.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libglassgtk2.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libglassgtk3.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libgstreamer-lite.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libjavafx_font.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libjavafx_font_freetype.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libjavafx_font_pango.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libjavafx_iio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libjfxmedia.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libjfxwebkit.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libprism_common.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libprism_es2.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/libprism_sw.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javafx-sdk-11/lib/src.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/bettershazam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/Audio$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/Audio$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/Audio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/Audio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/Complex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/Complex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/audio/record.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/database.ser" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/database.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bettershazam/fingerprint.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/fingerprint.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/bettershazam/record.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bettershazam/record.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/record.wav" beforeDir="false" afterPath="$PROJECT_DIR$/record.wav" afterDir="false" />
     </list>
@@ -32,9 +80,10 @@
         <counts>
           <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -57,6 +106,7 @@
           <entry key="JAVA" value="357" />
         </counts>
       </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
     </session>
   </component>
   <component name="FileEditorManager">
@@ -64,8 +114,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Audio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3525">
-              <caret line="239" lean-forward="true" selection-start-line="239" selection-end-line="239" />
+            <state relative-caret-position="1015">
+              <caret line="120" lean-forward="true" selection-start-line="119" selection-start-column="14" selection-end-line="120" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -77,14 +127,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Pair.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="522">
               <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
-              <folding>
-                <element signature="e#253#254#0" expanded="true" />
-                <element signature="e#287#288#0" expanded="true" />
-                <element signature="e#326#327#0" expanded="true" />
-                <element signature="e#362#363#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -92,7 +136,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Complex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
+            <state relative-caret-position="870">
               <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -130,15 +174,14 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="2459" />
+    <option name="height" value="1663" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -154,12 +197,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534962791022" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538853544962" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -205,10 +248,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="2459" height="1663" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10992529" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08688317" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -217,7 +259,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26526317" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26523298" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -240,11 +282,12 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Complex.java">
+    <entry file="file://$PROJECT_DIR$/Audio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
+        <state relative-caret-position="1015">
+          <caret line="120" lean-forward="true" selection-start-line="119" selection-start-column="14" selection-end-line="120" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -252,23 +295,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Pair.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="522">
           <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
-          <folding>
-            <element signature="e#253#254#0" expanded="true" />
-            <element signature="e#287#288#0" expanded="true" />
-            <element signature="e#326#327#0" expanded="true" />
-            <element signature="e#362#363#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Audio.java">
+    <entry file="file://$PROJECT_DIR$/Complex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3525">
-          <caret line="239" lean-forward="true" selection-start-line="239" selection-end-line="239" />
+        <state relative-caret-position="870">
+          <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>

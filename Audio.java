@@ -2,7 +2,7 @@
  * Created by whitt on 5/16/2018.
  */
 
-import javafx.util.Pair;
+
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import javax.sound.sampled.*;
-
-import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.details;
+//import javafx.util.Pair;
+//import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.details;
 //import org.math.plot.*;
 
 
@@ -30,8 +30,14 @@ public class Audio implements java.io.Serializable{
 
     public static void main(String[] args) throws IOException {
 
+        Pair<Integer, Integer> hi = new Pair<>(1, 1);
+
         Audio.deserializeDatabase();
-//        Audio.fingerprintFullSong("i_gotta_feeling.wav");
+//        Audio.fingerprintFullSong("Who_let_the_dogs_out.wav");
+//        Audio.fingerprintFullSong("In_My_Feelings.wav");
+//        Audio.fingerprintFullSong("Booty_From_A_Distance.wav");
+//        Audio.fingerprintFullSong("Shape_Of_You.wav");
+//        Audio.serializeDatabase();
         Audio.newRecording();
 
 
@@ -56,6 +62,20 @@ public class Audio implements java.io.Serializable{
             System.out.println("Employee class not found");
             c.printStackTrace();
             return;
+        }
+    }
+
+    public static void serializeDatabase() {
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("database.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(allTheFingerprints);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in database.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
         }
     }
 
@@ -351,17 +371,7 @@ public class Audio implements java.io.Serializable{
         // call getSignature
         getSignature(res, true, songName);
 
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream("database.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(allTheFingerprints);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in database.ser");
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
+
 
     }
 
@@ -378,10 +388,10 @@ public class Audio implements java.io.Serializable{
             map.put(hash, songs);
         }
 
-        System.out.println("Successfully entered: ");
-        System.out.print(details);
-        System.out.print(" into database with the hash ");
-        System.out.print(hash);
+//        System.out.println("Successfully entered: ");
+//       // System.out.print(details);
+//        System.out.print(" into database with the hash ");
+//        System.out.print(hash);
 
     }
 

@@ -54,7 +54,7 @@ public class Audio implements java.io.Serializable{
                 allTheFingerprints = new HashMap<Long, LinkedList<Pair<String, Integer>>>();
             }
             System.out.print("here is allTheFingerprints: ");
-            System.out.println(allTheFingerprints);
+//            System.out.println(allTheFingerprints);
         } catch (IOException i) {
             i.printStackTrace();
             return;
@@ -225,9 +225,11 @@ public class Audio implements java.io.Serializable{
 
         long[][] allPoints = new long[result.length][5];
 
+        HashMap<String, LinkedList<LinkedList<Integer>>> PossibleSongs = new HashMap();
+
         for (int i=0; i < result.length; i++) {
 
-            double[][] highscores = new double[result.length][400-40];
+            double[][] highscores = new double[result.length][5];
 
             for (int freq=40; freq < 400; freq++) {
                 // Get the magnitude:
@@ -238,6 +240,7 @@ public class Audio implements java.io.Serializable{
                 // Find out which range we are in:
                 int index = getIndex(freq);
 
+                // Save the highest magnitude and corresponding frequency:
                 // Save the highest magnitude and corresponding frequency:
                 if (mag > highscores[i][index]) {
                     highscores[i][index] = mag;
@@ -255,6 +258,13 @@ public class Audio implements java.io.Serializable{
                 }
             }
 
+//            System.out.println("allpoints (highscores): ");
+//            for (int k = 0; k < allPoints.length; k++) {
+//                for (int j = 0; j < allPoints[k].length; j++) {
+//                    System.out.print(allPoints[k][j] + " ");
+//                }
+//                System.out.println();
+//            }
             // hash
             long h = hashThis(
                     allPoints[i][0],
@@ -263,10 +273,10 @@ public class Audio implements java.io.Serializable{
                     allPoints[i][3]
             );
 
+
 //            System.out.println("Here is the hash: ");
 //            System.out.println(h);
 
-            HashMap<String, LinkedList<Integer>> PossibleSongs = new HashMap();
 
             // True: Need to put in database
             if (putInDatabaseOrNot) {
@@ -276,9 +286,10 @@ public class Audio implements java.io.Serializable{
                 // False: Looking it up in database
                 LinkedList<Pair<String, Integer>> listOfPairs = allTheFingerprints.get(h);
                 if (listOfPairs == null) {
-                    //System.out.println("NOT FOUND IN DATABASE");
+//                    System.out.println("NOT FOUND IN DATABASE");
                 } else {
-                    System.out.println("Found a match!!!!");
+//                    System.out.println("Found a match!!!!");
+//                    System.out.println(listOfPairs);
                     ListIterator<Pair<String,Integer>> listIterator = listOfPairs.listIterator();
                     while(listIterator.hasNext()) {
                         Pair<String, Integer> pair = listIterator.next();
@@ -287,40 +298,54 @@ public class Audio implements java.io.Serializable{
 
                         if (PossibleSongs.get(key) == null) {
                             // New possible song
-                            LinkedList<Integer> list = new LinkedList<Integer>();
-                            list.add(value);
+                            LinkedList<LinkedList<Integer>> list = new LinkedList<LinkedList<Integer>>();
+                            for (int k=1; k <= result.length; k++) {
+                                LinkedList<Integer> sublist = new LinkedList<>();
+                                list.add(sublist);
+                            }
+                            LinkedList<Integer> sublist = list.get(0);
+                            sublist.add(value);
                             PossibleSongs.put(key, list);
                             //Audio.putToMap();  need to put into Possible Songs!!!
                         } else {
                             // Add time interval to existing possible song
-                            LinkedList<Integer> list = PossibleSongs.get(key);
-                            list.add(value);
+                            LinkedList<LinkedList<Integer>> list = PossibleSongs.get(key);
+                            LinkedList<Integer> sublist = list.get(i);
+                            sublist.add(value);
                         }
                     }
 
                     // add logic to check that each sequential case in linked list is chronological
 
-                    Integer max = 0;
-                    String mostProbable = "";
-                    Iterator it = PossibleSongs.keySet().iterator();
-                    while(it.hasNext()) {
-                        String songname = it.next().toString();
-                        Integer len = PossibleSongs.get(songname).size();
-                        if (len > max) {
-                            max = len;
-                            mostProbable = songname;
-                        } else {
-                            System.out.println("SOMETHING WENT WRONG");
-                        }
-                    }
 
-                    System.out.println("Most probable song is: ");
-                    System.out.println(mostProbable);
 
                 }
             }
 
         }
+
+        Integer max = 0;
+        String mostProbable = "";
+        Iterator it = PossibleSongs.keySet().iterator();
+        while(it.hasNext()) {
+            String songname = it.next().toString();
+            Integer score = Audio.getScore(PossibleSongs, songname);
+
+            System.out.print("Song name: ");
+            System.out.println(songname);
+            System.out.print("score of song: ");
+            System.out.println(score);
+            if (score > max) {
+                max = score;
+                mostProbable = songname;
+            }
+        }
+
+        System.out.print("Most probable song is: ");
+        System.out.println(mostProbable);
+
+
+
 //        return everyHighscore;
     }
 
@@ -328,6 +353,32 @@ public class Audio implements java.io.Serializable{
         return (p4 - (p4 % FUZ_FACTOR)) * 100000000 + (p3 - (p3 % FUZ_FACTOR))
                 * 100000 + (p2 - (p2 % FUZ_FACTOR)) * 100
                 + (p1 - (p1 % FUZ_FACTOR));
+    }
+
+    public static int getScore(HashMap<String, LinkedList<LinkedList<Integer>>> possibleSongs, String songname) {
+        int score = 0;
+        LinkedList<LinkedList<Integer>> list = possibleSongs.get(songname);
+        if (list == null) {
+            return 0;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                int timeInSong = list.get(i).get(j);
+                int k = i+1;
+                System.out.print("timeInSong: ");
+                System.out.println(timeInSong);
+//                System.out.print("Next tuple: ");
+//                System.out.println(list.get(k));
+                while (k < list.size() && (list.get(k).contains(timeInSong+1) || list.get(k).contains(timeInSong+2)
+                        || list.get(k).contains(timeInSong+3) || list.get(k).contains(timeInSong+4))) {
+                    score += (int) Math.pow((k-i), (k-i));
+                    timeInSong += 1;
+                    k+=1;
+                }
+            }
+        }
+        return score;
     }
 
     public static void fingerprintFullSong(String wavFile) throws IOException {
@@ -402,16 +453,16 @@ public class Audio implements java.io.Serializable{
 //        return hash()
 //    }
 
-    private static double hash(double[] highscores) {
-        double p1 = highscores[0];
-        double p2 = highscores[1];
-        double p3 = highscores[2];
-        double p4 = highscores[3];
-
-        return (p4 - (p4 % FUZ_FACTOR)) * 100000000 + (p3 - (p3 % FUZ_FACTOR))
-                * 100000 + (p2 - (p2 % FUZ_FACTOR)) * 100
-                + (p1 - (p1 % FUZ_FACTOR));
-    }
+//    private static double hash(double[] highscores) {
+//        double p1 = highscores[0];
+//        double p2 = highscores[1];
+//        double p3 = highscores[2];
+//        double p4 = highscores[3];
+//
+//        return (p4 - (p4 % FUZ_FACTOR)) * 100000000 + (p3 - (p3 % FUZ_FACTOR))
+//                * 100000 + (p2 - (p2 % FUZ_FACTOR)) * 100
+//                + (p1 - (p1 % FUZ_FACTOR));
+//    }
 
 }
 
